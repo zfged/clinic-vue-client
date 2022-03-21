@@ -8,6 +8,9 @@ import Collaborator from './components/pages/Collaborator'
 import Salary from './components/pages/Salary'
 import Settings from './components/pages/Settings'
 import CashBox from './components/pages/Сashbox'
+import store from './store'
+import guest from './middleware/guest'
+import auth from './middleware/auth'
 
 const routes = [
   {
@@ -16,35 +19,77 @@ const routes = [
     children: [
       {
         path: 'clients',
-        component: Clients
+        component: Clients,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
       {
         path: 'descriptions',
-        component: Descriptions
+        component: Descriptions,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
       {
         path: 'services',
-        component: Services
+        component: Services,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
       {
         path: 'employers',
-        component: Collaborator
+        component: Collaborator,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
       {
         path: 'salary',
-        component: Salary
+        component: Salary,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
       {
         path: 'cashbox',
-        component: CashBox
+        component: CashBox,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
       {
         path: 'settings',
-        component: Settings
+        component: Settings,
+        meta: {
+          middleware: [
+            auth
+          ]
+        }
       },
     ]
   },
-  { path: '/login', component: Login },
+  {
+    path: '/login', component: Login,
+    meta: {
+      middleware: [
+        guest
+      ]
+    }
+  },
 ];
 
 const router = createRouter({
@@ -53,16 +98,19 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
-
-  if (authRequired && !loggedIn) {
-    return next('/login');
+  if (!to.meta.middleware) {
+      return next()
   }
-
-  next();
+  const middleware = to.meta.middleware
+  const context = {
+      to,
+      from,
+      next,
+      store
+  }
+  return middleware[0]({
+      ...context
+  })
 })
 
 export default router;

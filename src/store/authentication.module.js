@@ -1,40 +1,45 @@
-import { userService } from '../services';
+import { authService } from '../services';
 import  router  from '../router';
+import { notify } from "@kyvg/vue3-notification";
 
 const user = JSON.parse(localStorage.getItem('user'));
+
 const initialState = user
     ? { status: { loggedIn: true }, user }
-    : { status: {}, user: null };
+    : { status: {loggedIn: false }, user: null };
 
 export const authentication = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ dispatch, commit }, { username, password }) {
-            commit('loginRequest', { username });
-
-            userService.login(username, password)
+        login({commit }, { username, password }) {
+            authService.login(username, password)
                 .then(
                     user => {
                         commit('loginSuccess', user);
                         router.push('/');
+                        notify({
+                            title: "Authorization",
+                            text: "you are logged in",
+                            type: "success",
+                        });
                     },
                     error => {
                         commit('loginFailure', error);
-                        dispatch('alert/error', error, { root: true });
+                        notify({
+                            title: "Authorization",
+                            text: error.response.data.message,
+                            type: "error",
+                        });
                     }
                 );
         },
         logout({ commit }) {
-            userService.logout();
+            authService.logout();
             commit('logout');
         }
     },
     mutations: {
-        loginRequest(state, user) {
-            state.status = { loggingIn: true };
-            state.user = user;
-        },
         loginSuccess(state, user) {
             state.status = { loggedIn: true };
             state.user = user;
