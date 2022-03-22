@@ -1,6 +1,6 @@
 // import { centerService } from '../services';
 // import { notify } from "@kyvg/vue3-notification";
-export const users = {
+export const centers = {
     namespaced: true,
     state: () => ({
     
