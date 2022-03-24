@@ -196,6 +196,8 @@
     async created() {
       await this.$store.dispatch("users/initUsers");
       this.$store.state.users.users
+
+
     },
     methods: {
       setCurrentUser(user) {

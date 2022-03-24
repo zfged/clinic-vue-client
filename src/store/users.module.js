@@ -1,5 +1,21 @@
 import { userService } from '../services';
+import { centerService } from '../services';
 import { notify } from "@kyvg/vue3-notification";
+
+export const centers ={
+    namespaced: true,
+    state: () => ({
+        centers: []
+    }),
+    actions:{
+        async initCenters({commit}){
+            const centers =await centerService.getAllCenters()
+            commit("setCenters",centers)
+        }
+    }
+}
+
+
 export const users = {
     namespaced: true,
     state: () => ({
@@ -55,6 +71,9 @@ export const users = {
         },
         edit(state,user){
             state.users[state.users.findIndex(item => item.id == user.id)] = user
+        },
+        setCenters(state,centers){
+            state.centers[state.centers.findIndex(item =>item.id ==centers.id)] =centers
         }
     }
 }

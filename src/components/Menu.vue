@@ -8,9 +8,9 @@
             class="form-select"
             aria-label="Default select example"
           >
-            <option value="21">Самотужка 2</option>
-            <option value="20">Самотужка</option>
-            <option value="22">Самотужка Аква</option>
+            <option  v-for="(centers, index) in $store.state.centers.centers"
+                    :key="index" v-bind:value="index">{{centers.name}}</option>
+
           </select>
           <router-link to="/clients">Клиенты</router-link>
           <router-link to="/descriptions">Описание</router-link>
@@ -26,13 +26,19 @@
 </template>
 
 <script>
+import Center from "../models/center";
+
 export default {
   data() {
-    return {};
+    return {
+      center:new Center()
+    };
   },
   computed: {},
   created() {
-    
+
+     this.$store.dispatch("users/initCenters")
+
   },
   methods: {},
 };
