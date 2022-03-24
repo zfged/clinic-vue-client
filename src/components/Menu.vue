@@ -36,11 +36,12 @@ export default {
   },
   computed: {},
   created() {
-
-     this.$store.dispatch("users/initCenters")
+     this.$store.dispatch("centers/initCenters")
 
   },
-  methods: {},
+  methods: {
+
+  },
 };
 </script>
 
