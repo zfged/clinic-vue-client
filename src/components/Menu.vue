@@ -7,9 +7,10 @@
             id="top-centers-list"
             class="form-select"
             aria-label="Default select example"
+            @change="CurentCenter"
           >
-            <option  v-for="(centers, index) in $store.state.centers.centers"
-                    :key="index" v-bind:value="index">{{centers.name}}</option>
+            <option v-for="(centers, index) in $store.state.centers.centers"
+                    :key="index" v-bind:value="centers.id">{{centers.name}}</option>
 
           </select>
           <router-link to="/clients">Клиенты</router-link>
@@ -26,12 +27,12 @@
 </template>
 
 <script>
-import Center from "../models/center";
+// import Center from "../models/center";
 
 export default {
   data() {
     return {
-      center:new Center()
+
     };
   },
   computed: {},
@@ -40,9 +41,12 @@ export default {
 
   },
   methods: {
-
+    CurentCenter(){
+      alert()
+    }
   },
 };
+
 </script>
 
 <style scoped>
