@@ -346,7 +346,7 @@ table td{
 
 .left td i{
     margin-right: 10px;
-    color:var(--darkgreen);
+    color:var(--darkgreen) !important;
 }
 .service-right{
     flex-direction: column;
@@ -355,16 +355,12 @@ table td{
     color: orange;
 
 }
+
 .service-list tr td:last-of-type i:hover {
     cursor: pointer;
     color: white;
 }
-.service-form{
-    display: none;
-}
-.service-right h3{
-    display: none;
-}
+
 .service-preloader{
    position: absolute;
     width:100%;

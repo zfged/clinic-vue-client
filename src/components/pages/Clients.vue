@@ -36,6 +36,7 @@
     <div class="user" v-show="currentUser.show">
       <h3>{{ h3 }} {{mode}}  <span v-if="currentCenter">{{currentCenter.name}}</span></h3>
       <div class="user-info">
+        <div><button class="but-delete">Удалить</button></div>
         <table>
           <tr>
             <td>Фамилия</td>
@@ -238,5 +239,17 @@
   .disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+  .but-delete{
+    position: absolute;
+    left:70%;
+    top:50%;
+    border:none;
+    border:1px solid grey;
+    border-radius:10px;
+    width:200px;
+    height:35px;
+    background: white;
+    color:red;
   }
 </style>
