@@ -51,20 +51,24 @@
 </template>
 
 <script>
+import Service from "../../models/service";
+var servicesData = [
+  {id:1,name:'service 1',color:'#cccccc',during:60,cost:100, created_at:'', updated_at:''},
+  {id:2,name:'service 2',color:'#cccccc',during:60,cost:200, created_at:'', updated_at:''},
+  {id:3,name:'service 3',color:'#cccccc',during:60,cost:300, created_at:'', updated_at:''},
+]
 export default {
     data () {
         return {
-         
+          services:servicesData.map(service => new Service(service))
         }
     },
     computed: {
       
     },
     created () {
-     
     },
     methods: {
-      
     }
 };
 </script>

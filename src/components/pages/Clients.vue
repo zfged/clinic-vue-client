@@ -19,6 +19,7 @@
       <input type="text" placeholder="поиск" />
     </div>
     <div class="clients-list">
+      <h4 v-if="currentCenter">текущий центр {{currentCenter.name}}</h4>
       <h4>ФИО</h4>
       <ul>
         <li
@@ -34,7 +35,7 @@
   </div>
   <div class="right clients-right">
     <div class="user" v-show="currentUser.show">
-      <h3>{{ h3 }} {{mode}}  <span v-if="currentCenter">{{currentCenter.name}}</span></h3>
+      <h3>{{ h3 }} {{mode}}</h3>
       <div class="user-info">
         <div><button class="but-delete">Удалить</button></div>
         <table>

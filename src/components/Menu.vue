@@ -8,7 +8,6 @@
             id="top-centers-list"
             class="form-select"
             aria-label="Default select example"
-            @change="changeCenter"
           >
             <option v-for="(center, index) in $store.state.centers.centers"
                     :key="index" :value="center">{{center.name}}</option>
@@ -32,7 +31,6 @@
 export default {
   data() {
     return {
-      currentCenter:null
     };
   },
 
@@ -41,11 +39,17 @@ export default {
      this.currentCenter = this.$store.state.centers.centers[0]
      this.$store.commit("centers/setCurrentCenter",this.currentCenter)
   },
-  methods: {
-    changeCenter(){
-       this.$store.commit("centers/setCurrentCenter",this.currentCenter)
-    },
-  },
+
+  computed:{
+    currentCenter:{
+      get: function () {
+        return this.$store.state.centers.currentCenter
+      },
+      set: function (currentCenter) {
+        this.$store.commit("centers/setCurrentCenter",currentCenter)
+      }
+    }
+  }
 };
 
 </script>
