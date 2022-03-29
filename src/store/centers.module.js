@@ -5,6 +5,7 @@ export const centers = {
     state: () => ({
         centers: [],
         message:'',
+        currentCenter:null,
     }),
     actions:{
         async initCenters({commit}){
@@ -16,9 +17,8 @@ export const centers = {
         setCenters(state,centers){
             state.centers = centers
         },
-        test(state,message){
-            state.message = message
-            alert(message)
+        setCurrentCenter(state,center){
+            state.currentCenter = center
         }
     }
 }

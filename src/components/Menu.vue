@@ -4,15 +4,17 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 top-menu">
           <select
+            v-model="currentCenter"
             id="top-centers-list"
             class="form-select"
             aria-label="Default select example"
-            @change="CurentCenter"
+            @change="changeCenter"
           >
-            <option v-for="(centers, index) in $store.state.centers.centers"
-                    :key="index" v-bind:value="centers.id">{{centers.name}}</option>
+            <option v-for="(center, index) in $store.state.centers.centers"
+                    :key="index" :value="center">{{center.name}}</option>
 
           </select>
+         
           <router-link to="/clients">Клиенты</router-link>
           <router-link to="/descriptions">Описание</router-link>
           <router-link to="/services">Услуги</router-link>
@@ -27,23 +29,22 @@
 </template>
 
 <script>
-// import Center from "../models/center";
-
 export default {
   data() {
     return {
-
+      currentCenter:null
     };
   },
-  computed: {},
-  created() {
-     this.$store.dispatch("centers/initCenters")
 
+  async created() {
+     await this.$store.dispatch("centers/initCenters")
+     this.currentCenter = this.$store.state.centers.centers[0]
+     this.$store.commit("centers/setCurrentCenter",this.currentCenter)
   },
   methods: {
-    CurentCenter(){
-      alert()
-    }
+    changeCenter(){
+       this.$store.commit("centers/setCurrentCenter",this.currentCenter)
+    },
   },
 };
 
@@ -52,5 +53,9 @@ export default {
 <style scoped>
   .router-link-active {
     background-color: gray !important;
+  }
+
+  .current-center{
+    background-color: red;
   }
 </style>

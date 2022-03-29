@@ -34,7 +34,7 @@
   </div>
   <div class="right clients-right">
     <div class="user" v-show="currentUser.show">
-      <h3>{{ h3 }} {{mode}}</h3>
+      <h3>{{ h3 }} {{mode}}  <span v-if="currentCenter">{{currentCenter.name}}</span></h3>
       <div class="user-info">
         <table>
           <tr>
@@ -192,6 +192,10 @@
         if (this.mode == "edit") h3 = "Редактирование";
         return h3;
       },
+
+      currentCenter(){
+        return this.$store.state.centers.currentCenter
+      }
     },
     async created() {
       await this.$store.dispatch("users/initUsers");
