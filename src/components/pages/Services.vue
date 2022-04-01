@@ -13,31 +13,31 @@
 
   <div class="left left-li scroll">
     <table class="service-list">
-      <tr><td><i class="far fa-bookmark"></i> лфк</td> <td>60 мин</td> <td>300грн</td> <td><i class="fas fa-pencil-alt" ></i></td></tr>
-      <tr><td><i class="far fa-bookmark"></i> лфк</td> <td>60 мин</td> <td>300грн</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
-      <tr><td><i class="far fa-bookmark"></i> лфк</td> <td>60 мин</td> <td>300грн</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
+      <tr  @click="setCurrentService(service)" v-for="(service, index) in services"
+              :key="index"><td><i class="far fa-bookmark"></i> {{service.name}}</td> <td>{{service.during}}</td> <td>{{service.cost}}</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
+
     </table>
 
   </div>
   <div class="right service-right">
-    <h3>Редактирование услуги <span>Сюда название услуги</span></h3>
+    <h3>Редактирование услуги <span>{{this.currentService.name}}</span></h3>
     <div class="form-red service-form">
       <form id="service-form">
         <div class="mb-3">
           <label for="l1" class="form-label">название услуги</label>
-          <input type="text" class="form-control name-service" id="l1" aria-describedby="emailHelp" placeholder="название услуги">
+          <input type="text" class="form-control name-service" id="l1" aria-describedby="emailHelp" placeholder="название услуги" :value="currentService.name">
         </div>
         <div class="mb-3">
           <label for="l2" class="form-label">Длительность услуги</label>
-          <input type="number" class="form-control time-service" id="l2" placeholder="Длительность услуги">
+          <input type="number" class="form-control time-service" id="l2" placeholder="Длительность услуги" :value="currentService.during">
         </div>
         <div class="mb-3">
           <label for="l3" class="form-label">Стоимость услуги</label>
-          <input type="text" class="form-control price-service" id="l3" placeholder="Стоимость услуги">
+          <input type="text" class="form-control price-service" id="l3" placeholder="Стоимость услуги" :value="currentService.cost">
         </div>
         <div class="mb-3">
           <label for="exampleColorInput" class="form-label">Выберите цвет услуги</label>
-          <input type="color" class="form-control form-control-color color-edit" id="exampleColorInput" value="#563d7c" title="Выберите цвет услуги">
+          <input type="color" class="form-control form-control-color color-edit" id="exampleColorInput" :value="currentService.color" title="Выберите цвет услуги">
         </div>
         <input type="hidden" class="id-service" value="">
         <button type="submit" class="btn btn-primary  ">Редактировать</button>
@@ -52,7 +52,9 @@
 
 <script>
 import Service from "../../models/service";
-var servicesData = [
+// import User from "@/models/user";
+// import service from "../../models/service";
+let servicesData = [
   {id:1,name:'service 1',color:'#cccccc',during:60,cost:100, created_at:'', updated_at:''},
   {id:2,name:'service 2',color:'#cccccc',during:60,cost:200, created_at:'', updated_at:''},
   {id:3,name:'service 3',color:'#cccccc',during:60,cost:300, created_at:'', updated_at:''},
@@ -60,7 +62,8 @@ var servicesData = [
 export default {
     data () {
         return {
-          services:servicesData.map(service => new Service(service))
+          services:servicesData.map(service => new Service(service)),
+          currentService:servicesData[0]
         }
     },
     computed: {
@@ -69,6 +72,11 @@ export default {
     created () {
     },
     methods: {
+      setCurrentService(service){
+        console.log(service)
+        this.currentService.init(service);
+        console.log(this.currentService)
+      }
     }
 };
 </script>
