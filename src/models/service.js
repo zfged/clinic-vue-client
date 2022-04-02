@@ -1,28 +1,28 @@
-export default class Service{
+export default class Service {
     constructor(data) {
         this.init(data)
     }
 
-    init({ id = '', name = '', during = '', cost = '', color , created_at = '', updated_at = ''}) {
+    init({ id = '', name = '', during = '', cost = '', color, created_at = '', updated_at = '', show = false }) {
         this.id = id
         this.name = name
         this.during = during
         this.cost = cost
         this.color = color
+        this.show = show
         this.created_at = created_at
         this.updated_at = updated_at
-        this._user = null
     }
 
-    set user(user){
-        debugger
-        this._user = user
-        alert(`На занятии ${this.name} записан user ${user.name}`)
+    clear() {
+        this.id = ''
+        this.name = ''
+        this.during = ''
+        this.cost = ''
+        this.color = ''
     }
 
-    get user(){
-        debugger
-        return this._user
+    setShow(show) {
+        this.show = show
     }
-
 }

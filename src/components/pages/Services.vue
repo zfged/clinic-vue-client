@@ -2,8 +2,9 @@
 
   <div class="bottom-menu">
 
-    <a href="" class="for-popup-service"><i class="fas fa-puzzle-piece"></i>добавить</a>
-    <a href="" class="delete-service"><i class="fas fa-trash-alt"></i>удалить</a>
+    <div @click="add" class="for-popup-service"><i class="fas fa-puzzle-piece"></i>добавить</div>
+    <div @click="edit" class="for-popup-service" :class="{ disabled: !isEdit }"><i class="fas fa-puzzle-piece"></i>редактировать</div>
+    <div class="delete-service"><i class="fas fa-trash-alt"></i>удалить</div>
   </div>
 
 
@@ -19,28 +20,30 @@
     </table>
 
   </div>
-  <div class="right service-right">
-    <h3>Редактирование услуги <span>{{this.currentService.name}}</span></h3>
+  {{currentService.show}}
+  <div class="right service-right" v-show="currentService.show">
+    <h3>{{ h3 }} {{mode}}</h3>
     <div class="form-red service-form">
       <form id="service-form">
         <div class="mb-3">
           <label for="l1" class="form-label">название услуги</label>
-          <input type="text" class="form-control name-service" id="l1" aria-describedby="emailHelp" placeholder="название услуги" :value="currentService.name">
+          <input :disabled="mode == 'see'" type="text" class="form-control name-service" id="l1" aria-describedby="emailHelp" placeholder="название услуги" v-model="currentService.name">
         </div>
         <div class="mb-3">
           <label for="l2" class="form-label">Длительность услуги</label>
-          <input type="number" class="form-control time-service" id="l2" placeholder="Длительность услуги" :value="currentService.during">
+          <input :disabled="mode == 'see'" type="number" class="form-control time-service" id="l2" placeholder="Длительность услуги" v-model="currentService.during">
         </div>
         <div class="mb-3">
           <label for="l3" class="form-label">Стоимость услуги</label>
-          <input type="text" class="form-control price-service" id="l3" placeholder="Стоимость услуги" :value="currentService.cost">
+          <input :disabled="mode == 'see'" type="text" class="form-control price-service" id="l3" placeholder="Стоимость услуги" v-model="currentService.cost">
         </div>
         <div class="mb-3">
           <label for="exampleColorInput" class="form-label">Выберите цвет услуги</label>
-          <input type="color" class="form-control form-control-color color-edit" id="exampleColorInput" :value="currentService.color" title="Выберите цвет услуги">
+          <input :disabled="mode == 'see'" type="color" class="form-control form-control-color color-edit" id="exampleColorInput" v-model="currentService.color" title="Выберите цвет услуги">
         </div>
-        <input type="hidden" class="id-service" value="">
-        <button type="submit" class="btn btn-primary  ">Редактировать</button>
+         <button @click="saveOrEditService" v-show="mode == 'edit' || mode == 'add'">
+          {{ mode == "edit" ? "Сохранить" : "Добавить" }}
+        </button>
 
       </form>
 
@@ -54,29 +57,61 @@
 import Service from "../../models/service";
 // import User from "@/models/user";
 // import service from "../../models/service";
-let servicesData = [
+var services = [
   {id:1,name:'service 1',color:'#cccccc',during:60,cost:100, created_at:'', updated_at:''},
   {id:2,name:'service 2',color:'#cccccc',during:60,cost:200, created_at:'', updated_at:''},
   {id:3,name:'service 3',color:'#cccccc',during:60,cost:300, created_at:'', updated_at:''},
 ]
+
+services = services.map(service => new Service(service))
 export default {
     data () {
         return {
-          services:servicesData.map(service => new Service(service)),
-          currentService:servicesData[0]
+          services,
+          currentService:new Service({}),
+          mode: "see",
+          isEdit:false,
         }
     },
-    computed: {
-      
+    computed:{
+      h3() {
+        let h3 = "";
+        if (this.mode == "see") h3 = "Просмотр";
+        if (this.mode == "add") h3 = "Добавление";
+        if (this.mode == "edit") h3 = "Редактирование";
+        return h3;
+      }
     },
     created () {
+      this.currentService.init(services[0])
     },
     methods: {
       setCurrentService(service){
-        console.log(service)
         this.currentService.init(service);
-        console.log(this.currentService)
+        this.mode = "see";
+        this.isEdit = true
+        this.currentService.setShow(true);
+      },
+      edit() {
+        this.mode = "edit";
+        this.currentService.setShow(true);
+      },
+      add() {
+        this.mode = "add";
+        this.currentService.clear();
+        this.currentService.setShow(true);
+        this.isEdit = false
+      },
+      saveOrEditService(){
+
       }
     }
 };
 </script>
+
+<style>
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+</style>
