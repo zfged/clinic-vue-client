@@ -55,9 +55,8 @@
 
 <script>
 import Service from "../../models/service";
-// import User from "@/models/user";
-// import service from "../../models/service";
-var services = [
+
+let services = [
   {id:1,name:'service 1',color:'#cccccc',during:60,cost:100, created_at:'', updated_at:''},
   {id:2,name:'service 2',color:'#cccccc',during:60,cost:200, created_at:'', updated_at:''},
   {id:3,name:'service 3',color:'#cccccc',during:60,cost:300, created_at:'', updated_at:''},
@@ -100,7 +99,15 @@ export default {
         this.isEdit = false
       },
       saveOrEditService(){
+        if(this.mode == 'edit')
+          services[this.currentService["id"]]=new Service({currentService})
 
+        if(this.mode == 'add')
+          services.push(this.currentService)
+        this.currentService.clear();
+        this.currentService.setShow(false);
+        this.isEdit = false
+        this.mode = "see";
 
       }
 
