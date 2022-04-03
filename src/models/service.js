@@ -13,6 +13,17 @@ export default class Service{
         this.updated_at = updated_at
         this._user = null
     }
+    clear() {
+        this.id = ''
+        this.name = ''
+        this.email = ''
+        this.secondName = ''
+        this.phone = ''
+        this.patronymic = ''
+        this.birthday = ''
+        this.address = {}
+        this.centers = []
+    }
 
     set user(user){
         debugger

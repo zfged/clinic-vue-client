@@ -76,7 +76,18 @@ export default {
         console.log(service)
         this.currentService.init(service);
         console.log(this.currentService)
+      },
+      edit() {
+        this.mode = "edit";
+        this.currentService.setShow(true);
+      },
+      add() {
+        this.mode = "add";
+        this.currentService.clear();
+        this.currentService.setShow(true);
+        this.isEdit = false
       }
+
     }
 };
 </script>
