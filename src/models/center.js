@@ -12,4 +12,8 @@ export default class Center{
         this.updated_at = updated_at
     }
 
+    setShow(show){
+        this.show = show
+    }
+
 }

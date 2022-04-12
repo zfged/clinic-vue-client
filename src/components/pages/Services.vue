@@ -11,16 +11,15 @@
 
 
  
-
   <div class="left left-li scroll">
     <table class="service-list">
       <tr  @click="setCurrentService(service)" v-for="(service, index) in services"
               :key="index"><td><i class="far fa-bookmark"></i> {{service.name}}</td> <td>{{service.during}}</td> <td>{{service.cost}}</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
 
     </table>
+     <h4>mode {{mode}}  show {{currentService.show}} isEdit {{isEdit}}</h4>
 
   </div>
-  {{currentService.show}}
   <div class="right service-right" v-show="currentService.show">
     <h3>{{ h3 }} {{mode}}</h3>
     <div class="form-red service-form">
@@ -87,6 +86,9 @@ export default {
     methods: {
       setCurrentService(service){
         this.currentService.init(service);
+        this.mode = "see";
+        this.currentService.setShow(true);
+        this.isEdit = true
       },
       edit() {
         this.mode = "edit";
@@ -100,10 +102,10 @@ export default {
       },
       saveOrEditService(){
         if(this.mode == 'edit')
-          services[this.currentService["id"]]=new Service({currentService})
+          this.services[this.services.indexOf(this.currentService)]=new Service(this.currentService)
 
         if(this.mode == 'add')
-          services.push(this.currentService)
+        this.services.push(this.currentService)
         this.currentService.clear();
         this.currentService.setShow(false);
         this.isEdit = false

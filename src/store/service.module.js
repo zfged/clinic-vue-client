@@ -1,4 +1,4 @@
-import {serviceService} from "./services";
+import {serviceService} from "../services";
 // import {notify} from "@kyvg/vue3-notification";
 
 export const services = {
