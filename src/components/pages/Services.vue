@@ -13,7 +13,7 @@
  
   <div class="left left-li scroll">
     <table class="service-list">
-      <tr  @click="setCurrentService(service)" v-for="(service, index) in services"
+      <tr  @click="setCurrentService(service)" v-for="(service, index) in $store.state.services.services"
               :key="index"><td><i class="far fa-bookmark"></i> {{service.name}}</td> <td>{{service.during}}</td> <td>{{service.cost}}</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
 
     </table>
@@ -55,17 +55,9 @@
 <script>
 import Service from "../../models/service";
 
-let services = [
-  {id:1,name:'service 1',color:'#cccccc',during:60,cost:100, created_at:'', updated_at:''},
-  {id:2,name:'service 2',color:'#cccccc',during:60,cost:200, created_at:'', updated_at:''},
-  {id:3,name:'service 3',color:'#cccccc',during:60,cost:300, created_at:'', updated_at:''},
-]
-
-services = services.map(service => new Service(service))
 export default {
     data () {
         return {
-          services,
           currentService:new Service({}),
           mode: "see",
           isEdit:false,
@@ -80,8 +72,8 @@ export default {
         return h3;
       }
     },
-    created () {
-      this.currentService.init(services[0])
+    async created () {
+      await this.$store.dispatch("services/initServices");
     },
     methods: {
       setCurrentService(service){
@@ -100,12 +92,12 @@ export default {
         this.currentService.setShow(true);
         this.isEdit = false
       },
-      saveOrEditService(){
+      async saveOrEditService(){
         if(this.mode == 'edit')
-          this.services[this.services.indexOf(this.currentService)]=new Service(this.currentService)
+          await this.$store.dispatch("service/edit",this.currentService);
 
         if(this.mode == 'add')
-        this.services.push(this.currentService)
+          await this.$store.dispatch("service/add",this.currentService);
         this.currentService.clear();
         this.currentService.setShow(false);
         this.isEdit = false
