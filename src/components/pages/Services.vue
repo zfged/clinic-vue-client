@@ -17,11 +17,9 @@
               :key="index"><td><i class="far fa-bookmark"></i> {{service.name}}</td> <td>{{service.during}}</td> <td>{{service.cost}}</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
 
     </table>
-     <h4>mode {{mode}}  show {{currentService.show}} isEdit {{isEdit}}</h4>
-
   </div>
   <div class="right service-right" v-show="currentService.show">
-    <h3>{{ h3 }} {{mode}}</h3>
+    <h3>{{ h3 }}</h3>
     <div class="form-red service-form">
       <form id="service-form">
         <div class="mb-3">
@@ -94,10 +92,10 @@ export default {
       },
       async saveOrEditService(){
         if(this.mode == 'edit')
-          await this.$store.dispatch("service/edit",this.currentService);
+          await this.$store.dispatch("services/edit",this.currentService);
 
         if(this.mode == 'add')
-          await this.$store.dispatch("service/add",this.currentService);
+          await this.$store.dispatch("services/add",this.currentService);
         this.currentService.clear();
         this.currentService.setShow(false);
         this.isEdit = false

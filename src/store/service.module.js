@@ -1,4 +1,4 @@
-import {serviceService, userService} from "../services";
+import {serviceService} from "../services";
 import {notify} from "@kyvg/vue3-notification";
 // import {notify} from "@kyvg/vue3-notification";
 
@@ -15,7 +15,7 @@ export const services = {
 
         async add({commit},service) {
             try{
-                const serviceData = await userService.add(service)
+                const serviceData = await serviceService.add(service)
                 commit('add',serviceData)
                 notify({
                     title: "Service",
@@ -33,7 +33,7 @@ export const services = {
 
         async edit({commit},service) {
             try{
-                const serviceData = await userService.edit(service)
+                const serviceData = await serviceService.edit(service)
                 commit('edit',serviceData)
                 notify({
                     title: "услуга",
@@ -55,7 +55,7 @@ export const services = {
             state.services= services
         },
         add(state,service){
-            state.users.push(service)
+            state.services.push(service)
         },
         edit(state,service){
             state.services[state.services.findIndex(item => item.id == service.id)] = service
