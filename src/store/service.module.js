@@ -31,6 +31,25 @@ export const services = {
             }
         },
 
+        async remove({commit},service) {
+            try{
+                console.log(service)
+                const serviceData = await serviceService.remove(service)
+                commit('remove',serviceData)
+                notify({
+                    title: "Service",
+                    text: "service удален",
+                    type: "success",
+                });
+            }catch{
+                notify({
+                    title: "service",
+                    text: 'Ошибка удаления',
+                    type: "error",
+                });
+            }
+        },
+
         async edit({commit},service) {
             try{
                 const serviceData = await serviceService.edit(service)
@@ -58,6 +77,9 @@ export const services = {
             state.services.push(service)
         },
         edit(state,service){
+            state.services[state.services.findIndex(item => item.id == service.id)] = service
+        },
+        remove(state,service){
             state.services[state.services.findIndex(item => item.id == service.id)] = service
         },
     }

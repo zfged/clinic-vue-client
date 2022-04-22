@@ -4,7 +4,7 @@
 
     <div @click="add" class="for-popup-service"><i class="fas fa-puzzle-piece"></i>добавить</div>
     <div @click="edit" class="for-popup-service" :class="{ disabled: !isEdit }"><i class="fas fa-puzzle-piece"></i>редактировать</div>
-    <div class="delete-service"><i class="fas fa-trash-alt"></i>удалить</div>
+    <div class="delete-service" @click="remove"><i class="fas fa-trash-alt"></i>удалить</div>
   </div>
 
 
@@ -53,6 +53,8 @@
 <script>
 import Service from "../../models/service";
 
+// <---------дописать сервис сервис remove -------->
+
 export default {
     data () {
         return {
@@ -90,6 +92,12 @@ export default {
         this.currentService.setShow(true);
         this.isEdit = false
       },
+      remove() {
+        this.mode = "remove";
+        this.currentService.setShow(true);
+        this.isEdit = false
+        console.log(1)
+      },
       async saveOrEditService(){
         if(this.mode == 'edit')
           await this.$store.dispatch("services/edit",this.currentService);
@@ -100,6 +108,10 @@ export default {
         this.currentService.setShow(false);
         this.isEdit = false
         this.mode = "see";
+
+        if(this.mode == 'remove')
+          await this.$store.dispatch("services/remove",this.currentService);
+
 
       }
 

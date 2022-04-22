@@ -3,7 +3,8 @@ import Service from "../models/service"
 export const serviceService = {
     getAll,
     add,
-    edit
+    edit,
+    remove
 };
 
 async function getAll() {
@@ -20,6 +21,11 @@ async function add(service) {
 
 async function edit(service) {
     const res = await axios.put(`http://127.0.0.1:8000/api/services/${service['id']}`,service)
+    const data = new Service(res.data.data)
+    return data;
+}
+async function remove(service) {
+    const res = await axios.delete(`http://127.0.0.1:8000/api/services/${service['id']}`,service)
     const data = new Service(res.data.data)
     return data;
 }
