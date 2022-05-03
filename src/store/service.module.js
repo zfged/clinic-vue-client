@@ -51,6 +51,7 @@ export const services = {
         },
 
         async edit({commit},service) {
+            debugger
             try{
                 const serviceData = await serviceService.edit(service)
                 commit('edit',serviceData)
@@ -80,7 +81,7 @@ export const services = {
             state.services[state.services.findIndex(item => item.id == service.id)] = service
         },
         remove(state,service){
-            state.services[state.services.findIndex(item => item.id == service.id)] = service
+            state.services.splice(state.services.findIndex(item => item.id == service.id),1)
         },
     }
 }
