@@ -92,13 +92,14 @@ export default {
         this.currentService.setShow(true);
         this.isEdit = false
       },
-      remove() {
+      async remove() {
         this.mode = "remove";
-        this.currentService.setShow(true);
+        this.currentService.setShow(false);
         this.isEdit = false
-        console.log(1)
+        await this.$store.dispatch("services/remove",this.currentService);
       },
       async saveOrEditService(){
+        debugger
         if(this.mode == 'edit')
           await this.$store.dispatch("services/edit",this.currentService);
 
@@ -108,11 +109,6 @@ export default {
         this.currentService.setShow(false);
         this.isEdit = false
         this.mode = "see";
-
-        if(this.mode == 'remove')
-          await this.$store.dispatch("services/remove",this.currentService);
-
-
       }
 
     }
