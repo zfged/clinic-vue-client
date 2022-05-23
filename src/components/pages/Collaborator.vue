@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Collaborator from "../../models/Collaborator";
+import Collaborator from "../../models/collaborator";
 
 
 
