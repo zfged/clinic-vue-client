@@ -1,4 +1,4 @@
-import {serviceCollaborator } from "../services";
+import {serviceCollaborator} from "../services"
 import {notify} from "@kyvg/vue3-notification";
 // import {notify} from "@kyvg/vue3-notification";
 
@@ -8,7 +8,7 @@ export const collaborators = {
         collaborators :[]
     }),
     actions: {
-        async initCollaborators ({ commit }) {
+        async initCollaborators ({commit}) {
             const collaborators  = await serviceCollaborator.getAll()
             commit('setCollaborators ',collaborators )
         },

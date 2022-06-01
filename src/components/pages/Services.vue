@@ -14,7 +14,7 @@
   <div class="left left-li scroll">
     <table class="service-list">
       <tr  @click="setCurrentService(service)" v-for="(service, index) in $store.state.services.services"
-              :key="index"><td><i class="far fa-bookmark"></i> {{service.name}}</td> <td>{{service.during}}</td> <td>{{service.cost}}</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
+           :key="index"><td><i class="far fa-bookmark"></i> {{service.name}}</td> <td>{{service.during}}</td> <td>{{service.cost}}</td> <td><i class="fas fa-pencil-alt"></i></td></tr>
 
     </table>
   </div>
