@@ -2,9 +2,9 @@
 
   <div class="bottom-menu">
 
-    <a href="" class="for-popup"  id="addemployer2" @click="add"><i class="fas fa-user-plus"></i>добавить сотрудника</a>
-    <a href="" class="delete-emp"><i class="fas fa-trash-alt" @click="remove"></i>удалить сотрудника</a>
-    <a href="" class="delete-emp"><i class="fas fa-trash-alt" @click="edit"></i>редактировать сотрудника </a>
+    <button @click="add" class="button-vue"><i class="fas fa-user-plus"></i>добавить сотрудника</button>
+    <button class="button-vue"><i class="fas fa-trash-alt" @click="remove"></i>удалить сотрудника</button>
+    <button class="button-vue"><i class="fas fa-trash-alt" @click="edit"></i>редактировать сотрудника </button>
 <!--    <a href="/settings/schedule"><i class="fas fa-clipboard-list"></i>график работы</a>-->
   </div>
   <div class="left left-employers scroll">
@@ -20,12 +20,13 @@
 
     <ul id="employers-list" @click="setCurrentCollaborator(collaborator)" v-for="(collaborator,index) in $store.state.collaborators.collaborators"
     :key="index">
-      <li><a href=""><i class="fas fa-user"></i>{{collaborator.name}}</a></li>
+      <li class="pidor"><button style="width:100%;align-items: center;display: flex;justify-content: left;border:none;background: white;border-radius:10px"><i class="fas fa-user"></i>{{collaborator.name}}</button></li>
     </ul>
 
   </div>
+  {{currentCollaborator.show}}
   <div class="right service-right" v-show="currentCollaborator.show">
-    <h3>Редактирование сотрудников</h3>
+    <h3>{{h3}}</h3>
     <div class="form-red">
       <form class="edit-emp-form">
         <div class="mb-3">
@@ -45,7 +46,9 @@
           <textarea class="form-control" id="commit" rows="3" v-model="currentCollaborator.bio"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Редактировать</button>
+        <button @click="saveOrEditService" v-show="mode == 'edit' || mode == 'add'">
+          {{ mode == "edit" ? "Сохранить" : "Добавить" }}
+        </button>
 
       </form>
 
@@ -81,6 +84,7 @@ export default {
   },
   methods: {
     setCurrentCollaborator(collaborator){
+      debugger
       this.currentCollaborator.init(collaborator);
       this.mode = "see";
       this.currentCollaborator.setShow(true);
@@ -95,6 +99,7 @@ export default {
       this.currentCollaborator.clear();
       this.currentCollaborator.setShow(true);
       this.isEdit = false
+      debugger
     },
     remove() {
       this.mode = "remove";

@@ -399,12 +399,16 @@ table td{
     border-radius: 10px;
 
 }
+.button-vue{
+    border:none;
+    background: #D1D1D1;
+}
 .draganddrop {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.left-employers> ul > li > a{
+.left-employers> ul > li > button{
     /*border-bottom:1px solid #CCC;*/
     text-decoration: none;
     color:black;
@@ -417,7 +421,7 @@ table td{
     align-items: center;
 }
 
-.left-employers> ul > li > ul > li > a {
+.left-employers> ul > li > ul > li > button {
     color: #000;
     display: flex;
     width: 70%;
@@ -437,7 +441,10 @@ table td{
 
 .left-employers> ul > li > ul > li>i:hover {
     cursor: pointer;
-    color: #FFF;
+    color: white;
+}
+.pidor:hover button{
+    background: orange !important;
 }
 
 .left-employers> ul > li > i:hover {
@@ -701,15 +708,16 @@ table td{
     color:white;
     cursor:pointer;
 }
-.left-employers li:hover{
-    background:orange;
-}
-.left-employers li:hover ul{
-    background:orange;
-}
-.left-employers li a:hover {
-    color: #FFF;
-}
+/*.left-employers button~li:hover{*/
+/*    background:orange !important;*/
+/*    border-radius: 10px !important;*/
+/*}*/
+/*.left-employers li:hover ul{*/
+/*    background:orange;*/
+/*}*/
+/*.left-employers li button:hover {*/
+/*    color: #FFF;*/
+/*}*/
 .service-right{
     display:block;
 }
@@ -930,6 +938,13 @@ legend {
     height:150px;
     resize: none;
     padding: 5px;
+}
+
+#employers-list button:hover{
+    background: orange!important;
+}
+#employers-list li:hover{
+    background: orange!important;
 }
 .c .day-come-info{
     border-bottom: 1px solid white;

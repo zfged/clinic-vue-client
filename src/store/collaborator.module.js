@@ -10,11 +10,13 @@ export const collaborators = {
     actions: {
         async initCollaborators ({commit}) {
             const collaborators  = await serviceCollaborator.getAll()
-            commit('setCollaborators ',collaborators )
+            debugger
+            commit('setCollaborators',collaborators )
         },
 
         async add({commit},collaborator) {
             try{
+                debugger
                 const collaboratorData = await serviceCollaborator.add(collaborator)
                 commit('add',collaboratorData)
                 notify({
@@ -23,6 +25,7 @@ export const collaborators = {
                     type: "success",
                 });
             }catch{
+                debugger
                 notify({
                     title: "collaborator",
                     text: 'Ошибка добавления',

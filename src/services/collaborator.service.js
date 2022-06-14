@@ -14,8 +14,10 @@ async function getAll() {
 }
 
 async function add(collaborator) {
+    debugger
     const res = await axios.post(`http://127.0.0.1:8000/api/collaborator`,collaborator)
     const data = new Collaborator(res.data.data)
+    debugger
     return data;
 }
 

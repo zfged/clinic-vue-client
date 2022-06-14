@@ -5,8 +5,9 @@ export default class Collaborator {
 
     init({ id = '', name = '', birth = '', bio = '',  created_at = '', updated_at = '', show = false }) {
         this.id = id
+        debugger
         this.name = name
-        this.bitrh = birth
+        this.birth = birth
         this.bio = bio
         this.show = show
         this.created_at = created_at
